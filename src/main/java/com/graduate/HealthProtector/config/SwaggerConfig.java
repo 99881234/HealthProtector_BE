@@ -17,8 +17,8 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("HealthProtector API Test")
-                .description("Let's practice Swagger UI")
+                .title("HealthProtector 프로젝트")
+                .description("api 명세서")
                 .version("1.0.0"); // API의 버전
     }
 }
