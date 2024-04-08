@@ -1,30 +1,32 @@
 package com.graduate.HealthProtector.dto;
 
 import com.graduate.HealthProtector.entity.UserEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Builder
 public class UserDTO {
     private Long id;
-    private String userName;
-    private String userPwd;
+    private String loginId;
+    private String password;
+    private String username;
+    private String gender;
     private String email;
+    private String birthday;
 
-    public static UserDTO toUserDTO(UserEntity userEntity){
-        UserDTO userDTO = new UserDTO();
-
-        userDTO.setId(userEntity.getId());
-        userDTO.setUserPwd(userEntity.getUserPwd());
-        userDTO.setUserName(userEntity.getUserName());
-        userDTO.setEmail(userEntity.getEmail());
-
-        return userDTO;
+    public static UserDTO fromEntity(UserEntity userEntity) {
+        return UserDTO.builder()
+                .id(userEntity.getId())
+                .loginId(userEntity.getLoginId())
+                .password(userEntity.getPassword())
+                .username(userEntity.getUsername())
+                .gender(userEntity.getGender())
+                .email(userEntity.getEmail())
+                .birthday(userEntity.getBirthday())
+                .build();
     }
-
 }

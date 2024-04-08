@@ -1,12 +1,13 @@
 package com.graduate.HealthProtector.service;
 
+import com.graduate.HealthProtector.dto.LoginDTO;
 import com.graduate.HealthProtector.dto.UserDTO;
 import com.graduate.HealthProtector.entity.UserEntity;
 import com.graduate.HealthProtector.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,11 +19,31 @@ public class UserService {
 
     @Transactional
     public boolean save(UserDTO userDTO) {
-        if(!userRepository.existsByUserName(userDTO.getUserName())){
+        if (userRepository.existsById(userDTO.getId())) {
             return false;
         }
 
-        return true;
+        // 존재하지 않는 경우 회원 엔티티를 생성
+        UserEntity userEntity = UserEntity.builder()
+                .loginId(userDTO.getLoginId())
+                .password(userDTO.getPassword())
+                .username(userDTO.getUsername())
+                .gender(userDTO.getGender())
+                .email(userDTO.getEmail())
+                .birthday(userDTO.getBirthday())
+                .build();
 
+        // 회원 엔티티 저장
+        userRepository.save(userEntity);
+        return true;
+    }
+
+    public boolean login(String loginId, String password) {
+        Optional<UserEntity> optionalUserEntity = userRepository.findByLoginIdAndPassword(loginId, password);
+        return optionalUserEntity.isPresent();
+    }
+
+    public boolean checkId(String loginId) {
+        return userRepository.existsByLoginId(loginId);
     }
 }
