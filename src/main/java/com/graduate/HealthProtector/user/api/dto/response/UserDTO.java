@@ -1,6 +1,6 @@
-package com.graduate.HealthProtector.dto;
+package com.graduate.HealthProtector.user.api.dto.response;
 
-import com.graduate.HealthProtector.entity.UserEntity;
+import com.graduate.HealthProtector.user.domain.UserEntity;
 import lombok.*;
 
 @Getter

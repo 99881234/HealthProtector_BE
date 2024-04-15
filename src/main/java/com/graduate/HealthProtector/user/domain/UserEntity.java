@@ -1,6 +1,5 @@
-package com.graduate.HealthProtector.entity;
+package com.graduate.HealthProtector.user.domain;
 
-import com.graduate.HealthProtector.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,6 +1,6 @@
-package com.graduate.HealthProtector.repository;
+package com.graduate.HealthProtector.user.domain.repository;
 
-import com.graduate.HealthProtector.entity.UserEntity;
+import com.graduate.HealthProtector.user.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
