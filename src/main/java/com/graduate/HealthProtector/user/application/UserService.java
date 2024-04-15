@@ -1,9 +1,8 @@
-package com.graduate.HealthProtector.service;
+package com.graduate.HealthProtector.user.application;
 
-import com.graduate.HealthProtector.dto.LoginDTO;
-import com.graduate.HealthProtector.dto.UserDTO;
-import com.graduate.HealthProtector.entity.UserEntity;
-import com.graduate.HealthProtector.repository.UserRepository;
+import com.graduate.HealthProtector.user.api.dto.response.UserDTO;
+import com.graduate.HealthProtector.user.domain.UserEntity;
+import com.graduate.HealthProtector.user.domain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
