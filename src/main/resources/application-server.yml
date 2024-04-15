@@ -1,0 +1,10 @@
+spring:
+  config:
+    activate:
+      on-profile: server
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_JDBC_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
