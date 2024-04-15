@@ -1,4 +1,4 @@
-package com.graduate.HealthProtector.config;
+package com.graduate.HealthProtector.global.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -19,6 +19,6 @@ public class SwaggerConfig {
         return new Info()
                 .title("HealthProtector 프로젝트")
                 .description("api 명세서")
-                .version("1.0.0"); // API의 버전
+                .version("1.0.0");
     }
 }
