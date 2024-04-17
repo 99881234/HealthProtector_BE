@@ -1,6 +1,5 @@
 package com.graduate.HealthProtector.global.template;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 import lombok.Getter;
 

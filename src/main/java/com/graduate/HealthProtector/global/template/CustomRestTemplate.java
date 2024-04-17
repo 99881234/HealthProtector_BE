@@ -1,5 +1,6 @@
 package com.graduate.HealthProtector.global.template;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,11 +13,12 @@ public class CustomRestTemplate {
 
     private final RestTemplate restTemplate;
 
+    @Autowired
     public CustomRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public <T> T postForObject(String url, Object request, Class<T> responseType) {
+    public <T> T postForObject(String url, Object request, Class<T> responseType, String apiKey) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Object> entity = new HttpEntity<>(request, headers);
