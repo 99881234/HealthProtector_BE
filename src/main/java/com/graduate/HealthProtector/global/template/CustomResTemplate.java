@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class CustomRestTemplate {
+public class CustomResTemplate {
 
     private final RestTemplate restTemplate;
 
-    public CustomRestTemplate(RestTemplate restTemplate) {
+    public CustomResTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
