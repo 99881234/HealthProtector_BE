@@ -1,6 +1,6 @@
 package com.graduate.HealthProtector.protector.api.controller;
 
-import com.graduate.HealthProtector.global.template.CustomRestTemplate;
+import com.graduate.HealthProtector.global.template.CustomResTemplate;
 import com.graduate.HealthProtector.protector.api.dto.request.ChatGPTRequest;
 import com.graduate.HealthProtector.protector.api.dto.response.ChatGPTResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,12 +20,9 @@ public class CustomBotController {
     @Value("${spring.openai.api.url}")
     private String apiURL;
 
-    @Value("${spring.openai.api.key}")
-    private String apiKey;
+    private final CustomResTemplate customRestTemplate;
 
-    private final CustomRestTemplate customRestTemplate;
-
-    public CustomBotController(CustomRestTemplate customRestTemplate) {
+    public CustomBotController(CustomResTemplate customRestTemplate) {
         this.customRestTemplate = customRestTemplate;
     }
 

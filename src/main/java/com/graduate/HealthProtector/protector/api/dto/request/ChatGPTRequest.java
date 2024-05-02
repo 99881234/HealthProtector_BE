@@ -1,7 +1,7 @@
 package com.graduate.HealthProtector.protector.api.dto.request;
 
+import com.graduate.HealthProtector.protector.api.dto.Message;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 

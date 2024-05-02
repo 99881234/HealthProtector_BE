@@ -1,6 +1,6 @@
 package com.graduate.HealthProtector.user.api.dto.response;
 
-import com.graduate.HealthProtector.user.domain.UserEntity;
+import com.graduate.HealthProtector.user.domain.entity.User;
 import lombok.*;
 
 @Data
@@ -8,12 +8,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LoginDTO {
+public class LoginDto {
     private String loginId;
     private String password;
 
-    public static LoginDTO loginDTO(UserEntity userEntity){
-        return LoginDTO.builder()
+    public static LoginDto loginDTO(User userEntity){
+        return LoginDto.builder()
                 .loginId(userEntity.getLoginId())
                 .password(userEntity.getPassword())
                 .build();

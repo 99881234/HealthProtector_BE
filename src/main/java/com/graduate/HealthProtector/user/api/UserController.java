@@ -1,6 +1,6 @@
 package com.graduate.HealthProtector.user.api;
 
-import com.graduate.HealthProtector.user.api.dto.response.UserDTO;
+import com.graduate.HealthProtector.user.api.dto.response.UserDto;
 import com.graduate.HealthProtector.user.application.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class UserController {
 
     @Operation(summary = "회원가입 api")
     @PostMapping("/join")
-    public String join(UserDTO userDTO){
+    public String join(UserDto userDTO){
         boolean joinSuceessful = userService.save(userDTO);
         if(joinSuceessful){
             return "success";
