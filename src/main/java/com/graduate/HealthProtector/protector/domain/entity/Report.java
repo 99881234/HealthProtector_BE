@@ -16,6 +16,5 @@ public class Report {
     private String content;
     @Enumerated(EnumType.STRING)
     private State state;
-    @OneToMany(cascade = )
 
 }
