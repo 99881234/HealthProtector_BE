@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Getter
 @Data
-public class ResTemplate<T> {
+public class RestTemplate<T> {
     int statusCode;
     String message;
     T data;
 
-    public ResTemplate(int statusCode, String message, T data) {
+    public RestTemplate(int statusCode, String message, T data) {
         this.statusCode = statusCode;
         this.message = message;
     }
