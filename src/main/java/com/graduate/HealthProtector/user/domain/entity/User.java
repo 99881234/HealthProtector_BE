@@ -13,9 +13,9 @@ import lombok.*;
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id // primary key
-    private Long userId;
+    private Long Id;
 
-    @JoinColumn
+    @Column(length = 100)
     private String loginId;
 
     @Column(length = 100)
