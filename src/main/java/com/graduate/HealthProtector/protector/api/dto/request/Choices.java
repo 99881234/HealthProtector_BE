@@ -1,5 +1,6 @@
 package com.graduate.HealthProtector.protector.api.dto.request;
 
+import com.graduate.HealthProtector.protector.api.dto.Message;
 import lombok.Getter;
 import lombok.Setter;
 
