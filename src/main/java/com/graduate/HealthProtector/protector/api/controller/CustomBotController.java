@@ -20,6 +20,9 @@ public class CustomBotController {
     @Value("${spring.openai.api.url}")
     private String apiURL;
 
+    @Value(("spring.open.api.key"))
+    private  String apiKey;
+
     private final CustomRestTemplate customRestTemplate;
 
     public CustomBotController(CustomRestTemplate customRestTemplate) {
