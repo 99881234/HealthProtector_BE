@@ -36,6 +36,6 @@ public class CustomBotController {
             return "Error: " + e.getStatusCode() + " " + e.getResponseBodyAsString();
         }
     }
-    
+
 
 }
