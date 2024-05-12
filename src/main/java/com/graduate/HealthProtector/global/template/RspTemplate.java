@@ -6,18 +6,14 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Data
-public class RestTemplate<T> {
+public class RspTemplate<T> {
     int statusCode;
     String message;
     T data;
 
-    public RestTemplate(HttpStatus httpStatus, String message, T data) {
+    public RspTemplate(HttpStatus httpStatus, String message, T data) {
         this.statusCode = httpStatus.value();
         this.message = message;
         this.data = data;
-    }
-    public RestTemplate(HttpStatus httpStatus, String message) {
-        this.statusCode = httpStatus.value();
-        this.message = message;
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class CustomRestTemplate {
-
     private final RestTemplate restTemplate;
 
     @Autowired
