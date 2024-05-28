@@ -43,7 +43,6 @@ public class UserController {
     public String checkId(@RequestParam("loginId") String loginId){
         boolean checkId = userService.checkId(loginId);
         return !checkId ? "success" : "fail";
-        // 아이디가 이미 있을 경우 fail
     }
 
 }
