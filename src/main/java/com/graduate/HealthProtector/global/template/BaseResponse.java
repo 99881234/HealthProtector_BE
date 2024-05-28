@@ -3,16 +3,17 @@ package com.graduate.HealthProtector.global.template;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 @Getter
 @Data
-public class RspTemplate<T> {
-    int statusCode;
+public class BaseResponse<T> {
+    private HttpStatus status;
     String message;
     T data;
 
-    public RspTemplate(HttpStatus httpStatus, String message, T data) {
-        this.statusCode = httpStatus.value();
+    public BaseResponse(HttpStatus httpStatus, String message, T data) {
+        this.status = status;
         this.message = message;
         this.data = data;
     }

@@ -1,7 +1,11 @@
 package com.graduate.HealthProtector.user.domain.entity;
 
+import com.graduate.HealthProtector.protector.domain.entity.Report;
+import com.graduate.HealthProtector.protector.domain.entity.Report;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -9,10 +13,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "user")
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id // primary key
+    @Id
     private Long Id;
 
     @Column(length = 100)
@@ -32,5 +35,8 @@ public class User {
 
     @Column
     private String birthday;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Report> reports;
 
 }

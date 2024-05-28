@@ -12,11 +12,4 @@ public class LoginDto {
     private String loginId;
     private String password;
 
-    public static LoginDto loginDTO(User userEntity){
-        return LoginDto.builder()
-                .loginId(userEntity.getLoginId())
-                .password(userEntity.getPassword())
-                .build();
-    }
-
 }
