@@ -19,8 +19,8 @@ public class UserController {
     @Operation(summary = "회원가입 api")
     @PostMapping("/join")
     public String join(UserDto userDTO){
-        boolean joinSuceessful = userService.save(userDTO);
-        if(joinSuceessful){
+        boolean joinSuccessful = userService.save(userDTO);
+        if(joinSuccessful){
             return "success";
         }else{
             return "fail";
