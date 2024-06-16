@@ -20,4 +20,5 @@ public class ReportGeneratorController {
     public BaseResponse<?> createReport(@RequestParam(name = "loginId") String loginId, @RequestParam(name = "message") String message) {
         return reportGeneratorService.getChatResponse(loginId, message);
     }
+
 }
