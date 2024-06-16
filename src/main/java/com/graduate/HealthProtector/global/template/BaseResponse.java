@@ -13,7 +13,7 @@ public class BaseResponse<T> {
     T data;
 
     public BaseResponse(HttpStatus httpStatus, String message, T data) {
-        this.status = status;
+//        this.status = status;
         this.message = message;
         this.data = data;
     }
