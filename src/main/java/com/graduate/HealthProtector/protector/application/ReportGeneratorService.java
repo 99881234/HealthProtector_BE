@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
 @Service
 public class ReportGeneratorService {
     @Value("${spring.openai.model}")
@@ -55,6 +60,17 @@ public class ReportGeneratorService {
         }
     }
 
+    public BaseResponse<?> getReportByDate(String userId, LocalDate date) {
+            User user = userRepository.findByLoginId(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + userId));
+
+            LocalDateTime startDateTime = date.atStartOfDay();
+            LocalDateTime endDateTime = date.atTime(LocalTime.MAX);
+
+            List<Report> reports = reportRepository.findByUserAndCreateDateBetween(user, startDateTime, endDateTime);
+
+            return new BaseResponse<>(HttpStatus.OK, "Success", reports);
+    }
 }
 
 

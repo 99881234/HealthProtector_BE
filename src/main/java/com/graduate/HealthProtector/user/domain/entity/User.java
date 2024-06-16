@@ -36,7 +36,5 @@ public class User {
     @Column
     private String birthday;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Report> reports;
 
 }
