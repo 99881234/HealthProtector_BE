@@ -1,34 +1,46 @@
 package com.graduate.HealthProtector.record.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.graduate.HealthProtector.user.domain.entity.User;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 public class Record {
-    // record table에서 해야하는...
-    // 혈압측정, 복약알림, 근데 이거 완전 간단 CRUD인데
-    // 컬럼을 그러면 booldPressure, 이거 db저장 방법에 대해 생각을 해봐야할듯, 혈당, 건강리포트
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long sugarLevel;
+    @Nullable
     private Long bloodPressure;
+    @Nullable
     private String medicine;
+    @Nullable
     private String report;
+    private LocalDateTime createDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createDate = LocalDateTime.now();
+    }
 
     @Builder
-    public Record(Long sugarLevel, Long bloodPressure, String medicine, String report){
+    public Record(Long sugarLevel, Long bloodPressure, String medicine, String report, User user){
         this.sugarLevel = sugarLevel;
         this.bloodPressure = bloodPressure;
         this.medicine = medicine;
         this.report = report;
+        this.user = user;
     }
 
 }
