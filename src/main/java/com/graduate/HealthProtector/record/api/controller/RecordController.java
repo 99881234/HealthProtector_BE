@@ -17,15 +17,27 @@ public class RecordController {
     }
 
     @Operation(summary = "혈당 기록 api")
-    @PostMapping("/record/bloodSugar")
+    @PostMapping("/bloodSugar")
     public BaseResponse<?> recordBloodSugar(@RequestParam("sugarLevel") Long sugarLevel, @RequestParam("userId") String loginId){
         return recordService.recordBloodSugar(sugarLevel, loginId);
     }
 
     @Operation(summary = "혈압 기록 api")
-    @PostMapping("/record/bloodPressure")
+    @PostMapping("/bloodPressure")
     public BaseResponse<?> recordBloodPressure(@RequestParam("bloodPressure") Long bloodPressure, @RequestParam("userId") String loginId){
         return recordService.recordBloodPressure(bloodPressure, loginId);
+    }
+
+    @Operation(summary = "체중기록 api")
+    @PostMapping("/weight")
+    public BaseResponse<?> recordWeight(@RequestParam("weight") Long weight, @RequestParam("userId") String loginId){
+        return recordService.recordWeight(weight, loginId);
+    }
+
+    @Operation(summary = "건강기록 api")
+    @PostMapping("/health")
+    public BaseResponse<?> healthRecord(@RequestParam("userId") String loginId){
+        return recordService.recordHealth(loginId);
     }
 
 }

@@ -44,4 +44,23 @@ public class RecordService {
         return new BaseResponse<>(HttpStatus.OK, "Success", bloodPressure);
 
     }
+
+    public BaseResponse<?> recordWeight(Long weight, String loginId) {
+        User user = userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("ID: " + loginId));
+
+        Record record = Record.builder()
+                .weight(weight)
+                .build();
+        recordRepository.save(record);
+
+        return new BaseResponse<>(HttpStatus.OK, "Success", weight);
+    }
+
+    public BaseResponse<?> recordHealth(String loginId) {
+        User user = userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("ID: " + loginId));
+
+        return new BaseResponse<>(HttpStatus.OK, "Success", loginId);
+    }
 }

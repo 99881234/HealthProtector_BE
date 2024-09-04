@@ -20,6 +20,8 @@ public class Record {
     @Nullable
     private Long bloodPressure;
     @Nullable
+    private Long weight;
+    @Nullable
     private String medicine;
     @Nullable
     private String report;
@@ -35,9 +37,10 @@ public class Record {
     }
 
     @Builder
-    public Record(Long sugarLevel, Long bloodPressure, String medicine, String report, User user){
+    public Record(Long sugarLevel, Long bloodPressure, Long weight, String medicine, String report, User user){
         this.sugarLevel = sugarLevel;
         this.bloodPressure = bloodPressure;
+        this.weight = weight;
         this.medicine = medicine;
         this.report = report;
         this.user = user;
