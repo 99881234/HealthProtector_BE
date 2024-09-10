@@ -24,8 +24,9 @@ public class User {
 
 
     // User Entity에 cascade = CascadeType.ALL, orphanRemoval = true 추가
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Report> reports = new ArrayList<>();
+    private List<Report> reports = new ArrayList<>();
 
     @Column(nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
