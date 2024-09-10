@@ -1,40 +1,44 @@
 package com.graduate.HealthProtector.user.domain.entity;
 
 import com.graduate.HealthProtector.protector.domain.entity.Report;
-import com.graduate.HealthProtector.protector.domain.entity.Report;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.*;
 
-import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long Id;
-
-    @Column(length = 100)
+    private Long id;
     private String loginId;
-
-    @Column(length = 100)
     private String password;
-
-    @Column(length = 100)
     private String username;
-
-    @Column (length = 10)
-    private String gender;
-
-    @Column(length = 100)
     private String email;
 
-    @Column
-    private String birthday;
 
+    // User Entity에 cascade = CascadeType.ALL, orphanRemoval = true 추가
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Report> reports = new ArrayList<>();
+
+    @Column(nullable = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    @Column(nullable = true)
+    private String height;
+    @Column(nullable = true)
+    private String weight;
+    @Column(nullable = true)
+    private String gender;
+    @Column(nullable = true)
+    private String exerciseCycle;
+    @Column(nullable = true)
+    private String exerciseTime;
 
 }
