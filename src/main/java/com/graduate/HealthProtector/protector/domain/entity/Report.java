@@ -20,7 +20,11 @@ public class Report {
     private String botResponse;
     private LocalDateTime createDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*
+        user entity의 pk를 join하는데 그 이름을 user_id
+        cascade = CascadeType.ALL 추가
+     */
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
