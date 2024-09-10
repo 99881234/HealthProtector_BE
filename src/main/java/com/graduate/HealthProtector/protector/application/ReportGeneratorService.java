@@ -59,18 +59,6 @@ public class ReportGeneratorService {
             return new BaseResponse<>(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred: " + e.getMessage(), null);
         }
     }
-
-    public BaseResponse<?> getReportByDate(String userId, LocalDate date) {
-            User user = userRepository.findByLoginId(userId)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + userId));
-
-            LocalDateTime startDateTime = date.atStartOfDay();
-            LocalDateTime endDateTime = date.atTime(LocalTime.MAX);
-
-            List<Report> reports = reportRepository.findByUserAndCreateDateBetween(user, startDateTime, endDateTime);
-
-            return new BaseResponse<>(HttpStatus.OK, "Success", reports);
-    }
 }
 
 
