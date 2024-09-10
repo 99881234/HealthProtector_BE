@@ -1,6 +1,7 @@
 package com.graduate.HealthProtector.user.application;
 
-import com.graduate.HealthProtector.user.api.dto.response.UserDto;
+import com.graduate.HealthProtector.user.api.dto.response.HealthInfoDto;
+import com.graduate.HealthProtector.user.api.dto.response.JoinDto;
 import com.graduate.HealthProtector.user.domain.entity.User;
 import com.graduate.HealthProtector.user.domain.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -10,30 +11,58 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository; // jpa, MySQL dependency 추가
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Transactional
-    public boolean save(UserDto userDTO) {
-        if (userRepository.existsById(userDTO.getId())) {
+    public boolean save(JoinDto joinDTO) {
+        if (userRepository.existsById(joinDTO.getId())) {
             return false;
         }
 
-        // 존재하지 않는 경우 회원 엔티티를 생성
         User userEntity = User.builder()
-                .loginId(userDTO.getLoginId())
-                .password(userDTO.getPassword())
-                .username(userDTO.getUsername())
-                .gender(userDTO.getGender())
-                .email(userDTO.getEmail())
-                .birthday(userDTO.getBirthday())
+                .loginId(joinDTO.getLoginId())
+                .password(joinDTO.getPassword())
+                .username(joinDTO.getUsername())
+                .email(joinDTO.getEmail())
                 .build();
 
-        // 회원 엔티티 저장
         userRepository.save(userEntity);
+        return true;
+    }
+
+    public boolean deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean healthInfoSave(Long id, HealthInfoDto healthInfoDto) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // 기존 사용자 정보를 업데이트
+        existingUser = User.builder()
+                .id(existingUser.getId())
+                .loginId(existingUser.getLoginId())
+                .password(existingUser.getPassword())
+                .username(existingUser.getUsername())
+                .email(existingUser.getEmail())
+                .birthday(healthInfoDto.getBirthday())
+                .height(healthInfoDto.getHeight())
+                .weight(healthInfoDto.getWeight())
+                .gender(healthInfoDto.getGender())
+                .exerciseCycle(healthInfoDto.getExerciseCycle())
+                .exerciseTime(healthInfoDto.getExerciseTime())
+                .build();
+
+        userRepository.save(existingUser);
         return true;
     }
 
@@ -45,4 +74,6 @@ public class UserService {
     public boolean checkId(String loginId) {
         return userRepository.existsByLoginId(loginId);
     }
+
+
 }
