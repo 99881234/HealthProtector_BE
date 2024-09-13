@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @Operation(summary = "회원탈퇴 api")
-    @DeleteMapping("/deleteUse/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public String deletUser(@PathVariable("id") Long id){
         boolean deleteUserSuccessful = userService.deleteUser(id);
         return deleteUserSuccessful ? "success" : "fail";
