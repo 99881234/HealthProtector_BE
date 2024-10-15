@@ -1,7 +1,6 @@
 package com.graduate.HealthProtector.record.domain.entity;
 
 import com.graduate.HealthProtector.user.domain.entity.User;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -16,34 +15,30 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long sugarLevel;
-    @Nullable
-    private Long bloodPressure;
-    @Nullable
-    private Long weight;
-    @Nullable
-    private String medicine;
-    @Nullable
-    private String report;
-    private LocalDateTime createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createDate = LocalDateTime.now();
-    }
+    private int steps;
+    private int time;
+    private int stressIndex;
+    private int fatigueIndex;
+    private int healthScore;
+
+    private String feedback;
+
+    private LocalDateTime createdDate = LocalDateTime.now();
+
 
     @Builder
-    public Record(Long sugarLevel, Long bloodPressure, Long weight, String medicine, String report, User user){
-        this.sugarLevel = sugarLevel;
-        this.bloodPressure = bloodPressure;
-        this.weight = weight;
-        this.medicine = medicine;
-        this.report = report;
+    public Record(User user, int steps, int time, int stressIndex, int healthScore, int fatigueIndex, String feedback) {
         this.user = user;
+        this.steps = steps;
+        this.time = time;
+        this.stressIndex = stressIndex;
+        this.healthScore = healthScore;
+        this.fatigueIndex = fatigueIndex;
+        this.feedback = feedback;
     }
-
 }
