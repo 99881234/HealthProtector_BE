@@ -38,6 +38,7 @@ public class Report {
         this.userMessage = userMessage;
         this.botResponse = botResponse;
         this.user = user;
+        this.createDate = LocalDateTime.now();
     }
 }
 

@@ -16,9 +16,15 @@ public class ReportGeneratorController {
     }
 
     @GetMapping("/createReport")
-    @Operation(summary = "건강 리포트 생성", description = "건강 리포트를 생성합니다.")
+    @Operation(summary = "챗봇과 대화하기", description = "건강 챗봇과 대화합니다.")
     public BaseResponse<?> createReport(@RequestParam(name = "loginId") String loginId, @RequestParam(name = "message") String message) {
         return reportGeneratorService.getChatResponse(loginId, message);
+    }
+
+    @GetMapping("/calendar/{createDate}")
+    @Operation(summary = "해당 날짜 리포트 보기", description = "해당 날짜의 리포트를 출력합니다.")
+    public BaseResponse<?> getReportByDate(@RequestParam(name = "loginId") String loginId, @PathVariable(name = "createDate") String createDate) {
+        return reportGeneratorService.getReportByDate(loginId, createDate);
     }
 
 }
