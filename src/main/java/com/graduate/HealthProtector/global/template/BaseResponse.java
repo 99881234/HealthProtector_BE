@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -18,12 +16,18 @@ public class BaseResponse<T> {
     String message;
     T result;
 
-    public static <T> BaseResponse<T> response(T result) {
-        if (result == null) {
-            return new BaseResponse<>(HttpStatus.FORBIDDEN, "fail", result);
-        } else {
-            return new BaseResponse<>(HttpStatus.OK, "success", result);
-        }
+    // 성공 응답 생성
+    public static <T> BaseResponse<T> success(T result) {
+        return new BaseResponse<>(HttpStatus.OK, "success", result);
+    }
+
+    // 실패 응답 생성 (권한 문제 등)
+    public static <T> BaseResponse<T> fail(T result) {
+        return new BaseResponse<>(HttpStatus.FORBIDDEN, "fail", result);
+    }
+
+    // 사용자 지정 응답 생성
+    public static <T> BaseResponse<T> of(HttpStatus status, String message, T result) {
+        return new BaseResponse<>(status, message, result);
     }
 }
-

@@ -21,6 +21,7 @@ public class User {
     private String password;
     private String username;
     private String email;
+    private String phone;
 
 
     // User Entity에 cascade = CascadeType.ALL, orphanRemoval = true 추가
