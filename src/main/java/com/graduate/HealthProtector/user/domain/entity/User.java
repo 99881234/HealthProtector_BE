@@ -30,7 +30,7 @@ public class User {
 
     @Column(nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
+    private String birthday;
     @Column(nullable = true)
     private String height;
     @Column(nullable = true)

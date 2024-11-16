@@ -66,9 +66,18 @@ public class UserService {
         return true;
     }
 
-    public boolean login(String loginId, String password) {
-        Optional<User> optionalUserEntity = userRepository.findByLoginIdAndPassword(loginId, password);
-        return optionalUserEntity.isPresent();
+    public JoinDto authenticateUser(String loginId, String password) {
+        // 사용자 조회
+        User user = userRepository.findByLoginIdAndPassword(loginId, password)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid login credentials"));
+
+        return new JoinDto(
+                user.getId(),
+                user.getLoginId(),
+                user.getPassword(),
+                user.getUsername(),
+                user.getEmail()
+        );
     }
 
     public boolean checkId(String loginId) {

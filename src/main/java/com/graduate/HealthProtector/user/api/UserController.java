@@ -1,10 +1,12 @@
 package com.graduate.HealthProtector.user.api;
 
+import com.graduate.HealthProtector.global.template.BaseResponse;
 import com.graduate.HealthProtector.user.api.dto.response.HealthInfoDto;
 import com.graduate.HealthProtector.user.api.dto.response.JoinDto;
 import com.graduate.HealthProtector.user.application.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,13 +39,22 @@ public class UserController {
         boolean infoUpdateSuccessful = userService.healthInfoSave(id, healthInfoDto);
         return infoUpdateSuccessful ? "success" : "fail";
     }
-    
-    @Operation(summary = "로그인 api")
-    @GetMapping("/login")
-    public String login(@RequestParam("loginId") String loginId, @RequestParam("password") String password){
-        boolean loginSuccessful = userService.login(loginId, password);
-        return loginSuccessful ? "success" : "fail";
+
+    @Operation(summary = "로그인 API", description = "사용자가 로그인하면 인증 정보를 반환합니다.")
+    @PostMapping("/login")
+    public BaseResponse<?> login(@RequestParam("loginId") String loginId,
+                                 @RequestParam("password") String password) {
+        try {
+            JoinDto userResponse = userService.authenticateUser(loginId, password);
+
+            return BaseResponse.success(userResponse);
+        } catch (IllegalArgumentException e) {
+            return BaseResponse.fail(e.getMessage());
+        } catch (Exception e) {
+            return BaseResponse.internalServerError("로그인 처리 중 오류가 발생했습니다.");
+        }
     }
+
 
     @Operation(summary = "아이디 중복체크 api")
     @GetMapping("join/checkId")
