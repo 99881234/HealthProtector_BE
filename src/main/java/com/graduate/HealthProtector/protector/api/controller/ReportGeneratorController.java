@@ -2,29 +2,34 @@ package com.graduate.HealthProtector.protector.api.controller;
 
 import com.graduate.HealthProtector.global.template.BaseResponse;
 import com.graduate.HealthProtector.protector.application.ReportGeneratorService;
+import com.graduate.HealthProtector.user.domain.entity.User;
+import com.graduate.HealthProtector.user.domain.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/chat")
 public class ReportGeneratorController {
-    private final ReportGeneratorService reportGeneratorService;
 
-    public ReportGeneratorController(ReportGeneratorService reportGeneratorService, RestTemplate restTemplate) {
+    private final ReportGeneratorService reportGeneratorService;
+    private final UserRepository userRepository;
+
+    public ReportGeneratorController(ReportGeneratorService reportGeneratorService, UserRepository userRepository) {
         this.reportGeneratorService = reportGeneratorService;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/createReport")
+    @PostMapping("/createReport")
     @Operation(summary = "챗봇과 대화하기", description = "건강 챗봇과 대화합니다.")
     public BaseResponse<?> createReport(@RequestParam(name = "loginId") String loginId, @RequestParam(name = "message") String message) {
         return reportGeneratorService.getChatResponse(loginId, message);
-    }
-
-    @GetMapping("/calendar/{createDate}")
-    @Operation(summary = "해당 날짜 리포트 보기", description = "해당 날짜의 리포트를 출력합니다.")
-    public BaseResponse<?> getReportByDate(@RequestParam(name = "loginId") String loginId, @PathVariable(name = "createDate") String createDate) {
-        return reportGeneratorService.getReportByDate(loginId, createDate);
     }
 
 }

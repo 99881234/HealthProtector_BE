@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -28,11 +28,11 @@ public class Record {
 
     private String feedback;
 
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDate createdDate;
 
 
     @Builder
-    public Record(User user, int steps, int time, int stressIndex, int healthScore, int fatigueIndex, String feedback) {
+    public Record(User user, int steps, int time, int stressIndex, int healthScore, int fatigueIndex, String feedback, LocalDate createdDate) {
         this.user = user;
         this.steps = steps;
         this.time = time;
@@ -40,5 +40,6 @@ public class Record {
         this.healthScore = healthScore;
         this.fatigueIndex = fatigueIndex;
         this.feedback = feedback;
+        this.createdDate = createdDate;
     }
 }
