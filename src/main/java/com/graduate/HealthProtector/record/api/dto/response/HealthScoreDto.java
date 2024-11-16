@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class HealthScoreDto {
+    private String username;
     private int healthScore;
     private String feedback;
 }
