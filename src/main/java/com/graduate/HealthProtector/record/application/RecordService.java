@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+
 @Service
 public class RecordService {
 
@@ -36,7 +38,7 @@ public class RecordService {
     /**
      * 사용자의 건강 정보를 바탕으로 건강 점수를 계산하는 메소드
      */
-    public HealthScoreDto calculateHealthScore(String loginId, int steps, int time, int stressIndex, int fatigueIndex) {
+    public HealthScoreDto calculateHealthScore(String loginId, int steps, int time, int stressIndex, int fatigueIndex, LocalDate date) {
         User user = userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("ID: " + loginId + "인 사용자를 찾을 수 없습니다."));
 
@@ -47,21 +49,23 @@ public class RecordService {
                 .time(time)
                 .stressIndex(stressIndex)
                 .fatigueIndex(fatigueIndex)
+                .createdDate(date)
                 .build();
 
         // 건강 점수 계산
         int healthScore = calculateScore(record);
 
-        // 건강 기록 저장
-        recordRepository.save(record);
-
         // 피드백을 요청하여 저장
         String feedback = getChatFeedback(user, steps, time, stressIndex, fatigueIndex);
-        record.setFeedback(feedback); // 피드백 설정
-        recordRepository.save(record); // 기록 저장
 
-        return new HealthScoreDto(healthScore, feedback);
+        // 건강 기록 저장
+        record.setHealthScore(healthScore);  // 건강 점수 설정
+        record.setFeedback(feedback);        // 피드백 설정
+        recordRepository.save(record);       // 기록 저장
+
+        return new HealthScoreDto(user.getUsername(), healthScore, feedback);
     }
+
     private String getChatFeedback(User user, int steps, int time, int stressIndex, int fatigueIndex) {
         try {
             String healthInfo = String.format(
@@ -104,4 +108,29 @@ public class RecordService {
         // 최종 점수를 정수로 반환
         return (int) Math.round(weightedScore);
     }
+
+    public HealthScoreDto getHealthScoreByDate(String loginId, LocalDate date) {
+        // 사용자 조회
+        User user = userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("ID: " + loginId + "인 사용자를 찾을 수 없습니다."));
+
+        // 해당 날짜의 첫 번째 건강 기록을 조회
+        Record record = recordRepository.findFirstByUserAndCreatedDateOrderByCreatedDateAsc(user, date)
+                .orElseThrow(() -> new IllegalArgumentException("해당 날짜에 건강 기록이 존재하지 않습니다."));
+
+        // 저장된 건강 점수와 피드백을 그대로 반환
+        int healthScore = record.getHealthScore();
+        String feedback = record.getFeedback();
+        String username = user.getUsername(); // username 추가
+
+        // HealthScoreDto에 username을 포함하여 반환
+        return new HealthScoreDto(username, healthScore, feedback);
+    }
+
+
+
+
+
 }
+
+
