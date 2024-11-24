@@ -45,26 +45,31 @@ public class UserService {
 
     public boolean healthInfoSave(Long id, HealthInfoDto healthInfoDto) {
         User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + id));
 
-        // 기존 사용자 정보를 업데이트
-        existingUser = User.builder()
-                .id(existingUser.getId())
-                .loginId(existingUser.getLoginId())
-                .password(existingUser.getPassword())
-                .username(existingUser.getUsername())
-                .email(existingUser.getEmail())
-                .birthday(healthInfoDto.getBirthday())
-                .height(healthInfoDto.getHeight())
-                .weight(healthInfoDto.getWeight())
-                .gender(healthInfoDto.getGender())
-                .exerciseCycle(healthInfoDto.getExerciseCycle())
-                .exerciseTime(healthInfoDto.getExerciseTime())
-                .build();
+        if (healthInfoDto.getBirthday() != null) {
+            existingUser.setBirthday(healthInfoDto.getBirthday());
+        }
+        if (healthInfoDto.getHeight() != null) {
+            existingUser.setHeight(healthInfoDto.getHeight());
+        }
+        if (healthInfoDto.getWeight() != null) {
+            existingUser.setWeight(healthInfoDto.getWeight());
+        }
+        if (healthInfoDto.getGender() != null) {
+            existingUser.setGender(healthInfoDto.getGender());
+        }
+        if (healthInfoDto.getExerciseCycle() != null) {
+            existingUser.setExerciseCycle(healthInfoDto.getExerciseCycle());
+        }
+        if (healthInfoDto.getExerciseTime() != null) {
+            existingUser.setExerciseTime(healthInfoDto.getExerciseTime());
+        }
 
         userRepository.save(existingUser);
-        return true;
+        return true; // Indicate successful update
     }
+
 
     public JoinDto authenticateUser(String loginId, String password) {
         // 사용자 조회
